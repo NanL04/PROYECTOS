@@ -3,12 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package classes;
+package daughterClasses;
+
+import superclasess.Person;
 
 /**
  *
  * @author jazmi
  */
-public class HumanResources {
+public class HumanResources extends Person {
+    
     
 }

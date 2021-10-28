@@ -3,14 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package classes;
+package daughterClasses;
 
 /**
  *
  * @author jazmi
  */
-public class Person {
-    
-    
+public class Payroll {
     
 }
