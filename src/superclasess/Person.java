@@ -11,7 +11,6 @@ package superclasess;
  */
 
 public class Person {
-    public class Persona  {
 
         private String cedula;
         private String nombre;
@@ -20,7 +19,7 @@ public class Person {
         private String telefono;
         private String horario;
 
-    public Persona(String cedula, String nombre, String apellido, String direccion,
+    public Person(String cedula, String nombre, String apellido, String direccion,
             String telefono, String horario) {
         this.cedula = cedula;
         this.nombre = nombre;
@@ -116,7 +115,9 @@ public class Person {
 
         @Override
         public String toString() {
-            return "\nCédula: " + this.cedula + "\nNombre: " + this.nombre;
+            return "\nNombre: " + this.nombre+ "\nApellido: "+this.apellido  
+                    +"\nCédula: " + this.cedula + "\nDirección: " + this.direccion +
+                    "\nTelefono: " + this.telefono + "\nHorario: " + this.horario;
         }
 }
-}
+

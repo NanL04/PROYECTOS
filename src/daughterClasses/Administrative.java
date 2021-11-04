@@ -15,8 +15,11 @@ public class Administrative extends Person {
     private String puesto;
 
     public Administrative(String puesto, String cedula, String nombre, String apellido, String direccion, String telefono, String horario) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        super(cedula, nombre, apellido, direccion, telefono, horario);
+        this.puesto = puesto;
     }
+
+
 
 @Override
     public String toString() {
