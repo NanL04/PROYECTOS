@@ -74,19 +74,16 @@ public class Main {
                             break;
 
                         case 2:
-                                //ELIMINAR
-                            
-                            for (int i = 0; i < registro.length; i++) {
-//                                registro[i] = eliminarPersona();
-                            }
+                              eliminarPersona();
                             break;
                             
                         case 3:
-                                //BUSCAR
+                               buscarPersona();
                             break;
                             
                         case 4: 
-                                //MODIFICAR
+                            modificarPersona();
+                              
                             break;
                             
                         case 5: //VER
@@ -149,19 +146,71 @@ public class Main {
         return admin;
 
     }
-//    public static Person eliminarPersona() {
-//       
-//        Scanner scan = new Scanner(System.in);
-//        System.out.println("Digite el nombre de la persona que desea eliminar");
-//        String cedula = scan.next();
-//        for (int j=0; j< registro.length; j++){
-//            if (cedula == registro[j]){
-//            }
-//           
-//        return null;
-//
-//    }
-// 
-//
-//}
+    public static void eliminarPersona() {
+
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Digite la cedula de la persona que desea eliminar");
+        String cedula = scan.next();
+        
+        for (int j = 0; j < registro.length; j++) {
+            if (cedula.equals(registro[j].getCedula())) {
+                registro[j].setCedula("");
+                registro[j].setNombre("");
+                registro[j].setApellido("");
+                registro[j].setDireccion("");
+                registro[j].setTelefono("");
+                registro[j].setHorario(""); //unset()
+               
+                System.out.println("Persona eliminada");
+
+            }
+
+        }
+
+    }
+
+    public static void buscarPersona() {
+
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Digite la cedula de la persona que desea buscar");
+        String cedula = scan.next();
+        for (int j = 0; j < registro.length; j++) {
+            if (cedula.equals(registro[j].getCedula())) {
+                System.out.println("La persona se encuentra en el registro ");
+
+                System.out.println("El nombre de la persona es " + registro[j].getNombre());
+
+            } else {
+                System.out.println("La persona no se encuentra registrada");
+            }
+
+        }
+
+    }
+
+    public static void modificarPersona() {
+
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Digite la cedula de la persona que desea modificar");
+        String cedula = scan.next();
+        
+        
+        for (int j = 0; j < registro.length; j++) {
+            if (cedula.equals(registro[j].getCedula())) {
+                System.out.println("Digite el nuevo nombre de la persona que desea modificar");
+                String nombre = scan.next();
+                System.out.println("Digite el nuevo apellido de la persona que desea modificar");
+                String apellido = scan.next();
+               registro[j].setNombre(nombre);
+               registro[j].setApellido(apellido);
+                
+            } else {
+                System.out.println("La persona no fue encontrada");
+            }
+
+        }
+
+    }
+    
+
 }
