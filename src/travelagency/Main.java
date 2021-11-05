@@ -6,15 +6,17 @@
 package travelagency;
 
 import daughterClasses.Administrative;
+import daughterClasses.Pago;
 import java.util.Scanner;
 import superclasess.Person;
+import static travelagency.Main.registro;
 
 /**
  *
  * @author jazmi
  */
 public class Main {
-
+    
     static Person registro[];
     Scanner scan = new Scanner(System.in);
     /**
@@ -75,7 +77,7 @@ public class Main {
                                 //ELIMINAR
                             
                             for (int i = 0; i < registro.length; i++) {
-                                registro[i] = eliminarPersona();
+//                                registro[i] = eliminarPersona();
                             }
                             break;
                             
@@ -104,6 +106,8 @@ public class Main {
                     break;
                     
                 case 2:
+                    Pago pg = new Pago();
+                    pg.setVisible(true);
                     break;
                 case 3:
                       System.exit(0);
@@ -112,6 +116,11 @@ public class Main {
             }
 
         }
+    }
+    public static Person[] llamarRegistro(){
+        Person[] prueba = registro;
+        return prueba;
+        
     }
 
     public static Person crearPersona() {
@@ -140,18 +149,19 @@ public class Main {
         return admin;
 
     }
-    public static Person eliminarPersona() {
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Digite el nombre de la persona que desea eliminar");
-        String cedula = scan.next();
-        for (int j=0; j<registro.length; j++){
-            if (cedula == registro[j]){
-                
-        }
-           
-        return null;
-
-    }
- 
-
+//    public static Person eliminarPersona() {
+//       
+//        Scanner scan = new Scanner(System.in);
+//        System.out.println("Digite el nombre de la persona que desea eliminar");
+//        String cedula = scan.next();
+//        for (int j=0; j< registro.length; j++){
+//            if (cedula == registro[j]){
+//            }
+//           
+//        return null;
+//
+//    }
+// 
+//
+//}
 }
