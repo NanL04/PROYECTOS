@@ -12,34 +12,34 @@ import superclasess.Person;
  * @author jazmi
  */
 public class Administrative extends Person {
-    private String puesto;
+    private String position;
 
-    public Administrative(String puesto, String cedula, String nombre, String apellido, String direccion, String telefono, String horario) {
-        super(cedula, nombre, apellido, direccion, telefono, horario);
-        this.puesto = puesto;
+    public Administrative(String position, String identification, String name, String lastName, String direction, String telephone, String schedule) {
+        super(identification, name, lastName, direction, telephone, schedule);
+        this.position = position;
     }
 
 
 
 @Override
     public String toString() {
-        return super.toString()+"\nPuesto: "+this.getPuesto();
+        return super.toString()+"\nPuesto: "+this.getPosition();
     }
 
 
 
     /**
-     * @return the puesto
+     * @return the position
      */
-    public String getPuesto() {
-        return puesto;
+    public String getPosition() {
+        return position;
     }
 
     /**
-     * @param puesto the puesto to set
+     * @param position the position to set
      */
-    public void setPuesto(String puesto) {
-        this.puesto = puesto;
+    public void setPosition(String position) {
+        this.position = position;
     }
 
 }

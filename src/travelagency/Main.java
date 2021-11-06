@@ -6,11 +6,11 @@
 package travelagency;
 
 import daughterClasses.Administrative;
-import Formularios.Pago;
+import Formularios.Paying;
 import java.util.Scanner;
 import javafx.scene.control.Alert;
 import superclasess.Person;
-import static travelagency.Main.registro;
+import static travelagency.Main.registration;
 
 /**
  *
@@ -18,15 +18,15 @@ import static travelagency.Main.registro;
  */
 public class Main {
 
-    static Person registro[];
+    static Person[] registration;
     Scanner scan = new Scanner(System.in);
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        boolean salir = false;
-        while (!salir) {
+        boolean exit = false;
+        while (!exit) {
 
             try {
                 System.out.println("");
@@ -37,10 +37,10 @@ public class Main {
                 System.out.println("2. Pago de planilla");
                 System.out.println("3. Salir");
                 Scanner scan = new Scanner(System.in);
-                int opMenuPrincipal = scan.nextInt();
+                int opMainMenu = scan.nextInt();
                 System.out.println("");
 
-                switch (opMenuPrincipal) {
+                switch (opMainMenu) {
 
                     case 1:
 
@@ -50,27 +50,27 @@ public class Main {
                         System.out.println("3. Buscar");
                         System.out.println("4. Modificar");
                         System.out.println("5. Ver");
-                        int opMenuContratacion = scan.nextInt();
+                        int opRecruitmentMenu = scan.nextInt();
                         System.out.println("");
 
-                        switch (opMenuContratacion) {
+                        switch (opRecruitmentMenu) {
 
                             case 1:
 
                                 System.out.println("Ingrese la cantidad de personas a registrar: ");
-                                int cantidadPersona = scan.nextInt();
-                                registro = new Person[cantidadPersona];
+                                int amountOfPeople = scan.nextInt();
+                                registration = new Person[amountOfPeople];
 
-                                for (int i = 0; i < registro.length; i++) {
-                                    registro[i] = crearPersona();
+                                for (int i = 0; i < registration.length; i++) {
+                                    registration[i] = createPerson();
                                 }
 
                                 System.out.println("");
                                 System.out.println("***Personas registradas***");
 
-                                for (int i = 0; i < registro.length; i++) {
-                                    if (registro[i] instanceof Administrative) {
-                                        Administrative administrative = (Administrative) registro[i];
+                                for (int i = 0; i < registration.length; i++) {
+                                    if (registration[i] instanceof Administrative) {
+                                        Administrative administrative = (Administrative) registration[i];
                                         System.out.println(administrative);
                                         System.out.println("FFFFFFFFFFFFFFFFF");
                                     }
@@ -79,24 +79,24 @@ public class Main {
                                 break;
 
                             case 2:
-                                eliminarPersona();
+                                removePerson();
                                 break;
 
                             case 3:
-                                buscarPersona();
+                                searchPerson();
                                 break;
 
                             case 4:
-                                modificarPersona();
+                                modifyPerson();
 
                                 break;
 
                             case 5: //VER
                                 System.out.println("***Personas registradas***");
 
-                                for (int i = 0; i < registro.length; i++) {
-                                    if (registro[i] instanceof Administrative) {
-                                        Administrative administrative = (Administrative) registro[i];
+                                for (int i = 0; i < registration.length; i++) {
+                                    if (registration[i] instanceof Administrative) {
+                                        Administrative administrative = (Administrative) registration[i];
                                         System.out.println(administrative);
                                     }
 
@@ -108,7 +108,7 @@ public class Main {
                         break;
 
                     case 2:
-                        Pago pg = new Pago();
+                        Paying pg = new Paying();
                         pg.setVisible(true);
                         break;
                     case 3:
@@ -124,54 +124,54 @@ public class Main {
 
     }
 
-    public static Person[] llamarRegistro() {
-        Person[] prueba = registro;
-        return prueba;
+    public static Person[] callRegistration() {
+        Person[] test = registration;
+        return test;
 
     }
 
-    public static Person crearPersona() {
+    public static Person createPerson() {
         System.out.println("");
         System.out.println("Digite los datos de la persona a registrar");
         Scanner scan = new Scanner(System.in);
 
         System.out.println("Cedula: ");
-        String cedula = scan.next();
+        String identification = scan.next();
         System.out.println("Nombre: ");
-        String nombre = scan.next();
+        String name = scan.next();
         System.out.println("Apellido: ");
-        String apellido = scan.next();
+        String lastName = scan.next();
         System.out.println("Dirección: ");
-        String direccion = scan.next();
+        String direction = scan.next();
         System.out.println("Teléfono: ");
-        String telefono = scan.next();
+        String telephone = scan.next();
         System.out.println("Horario: ");
-        String horario = scan.next();
+        String schedule = scan.next();
         System.out.println("Puesto: ");
-        String puesto = scan.next();
+        String position = scan.next();
         System.out.println("");
 
-        Administrative admin = new Administrative(puesto, cedula, nombre,
-                apellido, direccion, telefono, horario);
+        Administrative admin = new Administrative(position, identification, name,
+                lastName, direction, telephone, schedule);
 
         return admin;
 
     }
 
-    public static void eliminarPersona() {
+    public static void removePerson() {
 
         Scanner scan = new Scanner(System.in);
         System.out.println("Digite la cedula de la persona que desea eliminar");
-        String cedula = scan.next();
+        String identification = scan.next();
 
-        for (int j = 0; j < registro.length; j++) {
-            int a = Integer.parseInt(cedula);
-            if (cedula.equals(registro[j].getCedula())) {
-                registro[j] = null;
+        for (int j = 0; j < registration.length; j++) {
+            int a = Integer.parseInt(identification);
+            if (identification.equals(registration[j].getIdentification())) {
+                registration[j] = null;
 
 //               
 //                System.out.println("Persona eliminada");
-//                System.out.println(registro[j].getCedula()+ "correcto");
+//                System.out.println(registration[j].getCedula()+ "correcto");
             } else {
                 System.out.println("La persona no se encontro en la base de datos");
             }
@@ -180,19 +180,19 @@ public class Main {
 
     }
 
-    public static void buscarPersona() {
+    public static void searchPerson() {
 
         Scanner scan = new Scanner(System.in);
         System.out.println("Digite la cedula de la persona que desea buscar");
-        String cedula = scan.nextLine();
+        String identification = scan.nextLine();
 
-        for (int j = 0; j < registro.length; j++) {
+        for (int j = 0; j < registration.length; j++) {
 
-            if (cedula.equals(registro[j].getCedula())) {
+            if (identification.equals(registration[j].getIdentification())) {
                 System.out.println("La persona se encuentra en el registro ");
 
-                System.out.println("El nombre de la persona es " + registro[j].getNombre());
-                System.out.println("El apellido de la persona es " + registro[j].getApellido());
+                System.out.println("El nombre de la persona es " + registration[j].getName());
+                System.out.println("El apellido de la persona es " + registration[j].getLastName());
 
             } else {
                 System.out.println("La persona no se encuentra registrada");
@@ -202,20 +202,20 @@ public class Main {
 
     }
 
-    public static void modificarPersona() {
+    public static void modifyPerson() {
 
         Scanner scan = new Scanner(System.in);
         System.out.println("Digite la cedula de la persona que desea modificar");
-        String cedula = scan.next();
+        String identification = scan.next();
 
-        for (int j = 0; j < registro.length; j++) {
-            if (cedula.equals(registro[j].getCedula())) {
+        for (int j = 0; j < registration.length; j++) {
+            if (identification.equals(registration[j].getIdentification())) {
                 System.out.println("Digite el nuevo nombre de la persona que desea modificar");
-                String nombre = scan.next();
+                String name = scan.next();
                 System.out.println("Digite el nuevo apellido de la persona que desea modificar");
-                String apellido = scan.next();
-                registro[j].setNombre(nombre);
-                registro[j].setApellido(apellido);
+                String lastName = scan.next();
+                registration[j].setName(name);
+                registration[j].setLastName(lastName);
 
             } else {
                 System.out.println("La persona no fue encontrada");

@@ -12,21 +12,21 @@ package superclasess;
 
 public class Person {
 
-        private String cedula;
-        private String nombre;
-        private String apellido;
-        private String direccion;
-        private String telefono;
-        private String horario;
+        private String identification;
+        private String name;
+        private String lastName;
+        private String direction;
+        private String telephone;
+        private String schedule;
 
-    public Person(String cedula, String nombre, String apellido, String direccion,
-            String telefono, String horario) {
-        this.cedula = cedula;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.direccion = direccion;
-        this.telefono = telefono;
-        this.horario = horario;
+    public Person(String identification, String name, String lastName, String direction,
+            String telephone, String schedule) {
+        this.identification = identification;
+        this.name = name;
+        this.lastName = lastName;
+        this.direction = direction;
+        this.telephone = telephone;
+        this.schedule = schedule;
     }
 
     public Person() {
@@ -34,94 +34,94 @@ public class Person {
     }
 
         /**
-         * @return the cedula
+         * @return the identification
          */
-        public String getCedula() {
-            return cedula;
+        public String getIdentification() {
+            return identification;
         }
 
         /**
-         * @param cedula the cedula to set
+         * @param identification the identification to set
          */
-        public void setCedula(String cedula) {
-            this.cedula = cedula;
+        public void setIdentification(String identification) {
+            this.identification = identification;
         }
 
         /**
-         * @return the nombre
+         * @return the name
          */
-        public String getNombre() {
-            return nombre;
+        public String getName() {
+            return name;
         }
 
         /**
-         * @param nombre the nombre to set
+         * @param name the name to set
          */
-        public void setNombre(String nombre) {
-            this.nombre = nombre;
+        public void setName(String name) {
+            this.name = name;
         }
 
         /**
-         * @return the apellido
+         * @return the lastName
          */
-        public String getApellido() {
-            return apellido;
+        public String getLastName() {
+            return lastName;
         }
 
         /**
-         * @param apellido the apellido to set
+         * @param lastName the lastName to set
          */
-        public void setApellido(String apellido) {
-            this.apellido = apellido;
+        public void setLastName(String lastName) {
+            this.lastName = lastName;
         }
 
         /**
-         * @return the direccion
+         * @return the direction
          */
-        public String getDireccion() {
-            return direccion;
+        public String getDirection() {
+            return direction;
         }
 
         /**
-         * @param direccion the direccion to set
+         * @param direction the direction to set
          */
-        public void setDireccion(String direccion) {
-            this.direccion = direccion;
+        public void setDirection(String direction) {
+            this.direction = direction;
         }
 
         /**
-         * @return the telefono
+         * @return the telephone
          */
-        public String getTelefono() {
-            return telefono;
+        public String getTelephone() {
+            return telephone;
         }
 
         /**
-         * @param telefono the telefono to set
+         * @param telephone the telephone to set
          */
-        public void setTelefono(String telefono) {
-            this.telefono = telefono;
+        public void setTelephone(String telephone) {
+            this.telephone = telephone;
         }
 
         /**
-         * @return the horario
+         * @return the schedule
          */
-        public String getHorario() {
-            return horario;
+        public String getSchedule() {
+            return schedule;
         }
 
         /**
-         * @param horario the horario to set
+         * @param schedule the schedule to set
          */
-        public void setHorario(String horario) {
-            this.horario = horario;
+        public void setSchedule(String schedule) {
+            this.schedule = schedule;
         }
 
         @Override
         public String toString() {
-            return "\nNombre: " + this.nombre+ "\nApellido: "+this.apellido  
-                    +"\nCédula: " + this.cedula + "\nDirección: " + this.direccion +
-                    "\nTelefono: " + this.telefono + "\nHorario: " + this.horario;
+            return "\nNombre: " + this.name+ "\nApellido: "+this.lastName  
+                    +"\nCédula: " + this.identification + "\nDirección: " + this.direction +
+                    "\nTelefono: " + this.telephone + "\nHorario: " + this.schedule;
         }
 }
 

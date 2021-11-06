@@ -5,8 +5,7 @@
  */
 package Formularios;
 
-import static Formularios.Pago.registro;
-import java.awt.HeadlessException;
+import static Formularios.Paying.registro;
 import javax.swing.JOptionPane;
 import superclasess.Person;
 import travelagency.Main;
@@ -16,28 +15,46 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Poke
  */
-public class Pago extends javax.swing.JFrame {
+public class Paying extends javax.swing.JFrame {
 
     /**
      *
-     * Creates new form Pago
+     * Creates new form Paying
      */
-    DefaultTableModel modelo = new DefaultTableModel();
+    DefaultTableModel model = new DefaultTableModel();
 
-    public Pago() {
+    public Paying() {
         initComponents();
+        
         txt_baseSalary.setEditable(false);
         txt_netSalary.setEditable(false);
         txt_safe.setEditable(false);
+        btn_calculate.setEnabled(false);
+        btn_delete.setEnabled(true);
+        btn_save.setEnabled(false);
         setLocationRelativeTo(this);
-        modelo.addColumn("ID");
-        modelo.addColumn("NOMBRE");
-        modelo.addColumn("SALARIO BRUTO");
-        modelo.addColumn("SALARIO NETO");
-        tbt_board.setModel(modelo);
+        model.addColumn("ID");
+        model.addColumn("NOMBRE");
+        model.addColumn("SALARIO BRUTO");
+        model.addColumn("SALARIO NETO");
+        tbt_board.setModel(model);
     }
+    
+    public void enableButton() {
+        if (txt_hoursWorked.getText().isEmpty() || txt_extraHours.getText().isEmpty()
+                || txt_hourlyPay.getText().isEmpty() || txt_extraPayment.getText().isEmpty()
+                || txt_id.getText().isEmpty() || txt_saving.getText().isEmpty()
+                || txt_schoolSavings.getText().isEmpty()){
 
-    static Person[] registro = Main.llamarRegistro();
+            btn_save.setEnabled(false);
+            btn_calculate.setEnabled(false);
+        } else {
+            btn_save.setEnabled(true);
+            btn_calculate.setEnabled(true);
+        }
+
+    }
+    static Person[] registro = Main.callRegistration();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -64,7 +81,7 @@ public class Pago extends javax.swing.JFrame {
         txt_netSalary = new javax.swing.JTextField();
         btn_calculate = new javax.swing.JButton();
         btn_new = new javax.swing.JButton();
-        bnt_save = new javax.swing.JButton();
+        btn_save = new javax.swing.JButton();
         btn_exit = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         txt_extraPayment = new javax.swing.JTextField();
@@ -81,6 +98,11 @@ public class Pago extends javax.swing.JFrame {
         btn_delete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                formKeyReleased(evt);
+            }
+        });
 
         jLabel2.setText("HORAS TRABAJADAS");
 
@@ -99,10 +121,20 @@ public class Pago extends javax.swing.JFrame {
                 txt_idActionPerformed(evt);
             }
         });
+        txt_id.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_idKeyReleased(evt);
+            }
+        });
 
         txt_hoursWorked.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_hoursWorkedActionPerformed(evt);
+            }
+        });
+        txt_hoursWorked.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_hoursWorkedKeyReleased(evt);
             }
         });
 
@@ -111,10 +143,20 @@ public class Pago extends javax.swing.JFrame {
                 txt_extraHoursActionPerformed(evt);
             }
         });
+        txt_extraHours.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_extraHoursKeyReleased(evt);
+            }
+        });
 
         txt_baseSalary.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_baseSalaryActionPerformed(evt);
+            }
+        });
+        txt_baseSalary.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_baseSalaryKeyReleased(evt);
             }
         });
 
@@ -123,12 +165,28 @@ public class Pago extends javax.swing.JFrame {
                 txt_hourlyPayActionPerformed(evt);
             }
         });
+        txt_hourlyPay.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_hourlyPayKeyReleased(evt);
+            }
+        });
+
+        txt_saving.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_savingActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("SUELDO NETO");
 
         txt_netSalary.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_netSalaryActionPerformed(evt);
+            }
+        });
+        txt_netSalary.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_netSalaryKeyReleased(evt);
             }
         });
 
@@ -145,11 +203,21 @@ public class Pago extends javax.swing.JFrame {
                 btn_newActionPerformed(evt);
             }
         });
+        btn_new.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                btn_newKeyReleased(evt);
+            }
+        });
 
-        bnt_save.setText("Guardar");
-        bnt_save.addActionListener(new java.awt.event.ActionListener() {
+        btn_save.setText("Guardar");
+        btn_save.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bnt_saveActionPerformed(evt);
+                btn_saveActionPerformed(evt);
+            }
+        });
+        btn_save.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                btn_saveKeyReleased(evt);
             }
         });
 
@@ -159,10 +227,27 @@ public class Pago extends javax.swing.JFrame {
                 btn_exitActionPerformed(evt);
             }
         });
+        btn_exit.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                btn_exitKeyReleased(evt);
+            }
+        });
 
         jLabel9.setText("PAGO POR HORAS EXTRAS");
 
+        txt_extraPayment.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_extraPaymentKeyReleased(evt);
+            }
+        });
+
         jLabel10.setText("AHORRO");
+
+        txt_schoolSavings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_schoolSavingsActionPerformed(evt);
+            }
+        });
 
         jLabel11.setText("SEGURO");
 
@@ -174,6 +259,9 @@ public class Pago extends javax.swing.JFrame {
         txt_safe.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txt_safeKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_safeKeyReleased(evt);
             }
         });
 
@@ -224,12 +312,22 @@ public class Pago extends javax.swing.JFrame {
                 tbt_boardAncestorRemoved(evt);
             }
         });
+        tbt_board.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                tbt_boardKeyReleased(evt);
+            }
+        });
         jScrollPane2.setViewportView(tbt_board);
 
         btn_delete.setText("Borrar");
         btn_delete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_deleteActionPerformed(evt);
+            }
+        });
+        btn_delete.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                btn_deleteKeyReleased(evt);
             }
         });
 
@@ -239,7 +337,7 @@ public class Pago extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -249,34 +347,9 @@ public class Pago extends javax.swing.JFrame {
                             .addComponent(jLabel13)
                             .addComponent(jLabel8)
                             .addComponent(jLabel4))
-                        .addGap(25, 25, 25)
-                        .addComponent(txt_baseSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txt_saving, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(9, 809, Short.MAX_VALUE)
+                        .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_safe, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_hourlyPay, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_extraPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_schoolSavings, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(108, 108, 108))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btn_calculate)
-                        .addGap(169, 169, 169)
-                        .addComponent(btn_new)
-                        .addGap(190, 190, 190)
-                        .addComponent(bnt_save)
-                        .addGap(175, 175, 175)
-                        .addComponent(btn_delete)
-                        .addGap(172, 172, 172)
-                        .addComponent(btn_exit))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(138, 138, 138)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_baseSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addComponent(txt_hoursWorked, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txt_extraHours, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -284,16 +357,36 @@ public class Pago extends javax.swing.JFrame {
                             .addComponent(txt_netSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(50, 50, 50)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)
                             .addComponent(jLabel11)
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3)))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(178, 178, 178)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_hourlyPay, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_schoolSavings, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_saving, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_safe, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_extraPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 1015, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(442, 442, 442)
+                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addComponent(btn_calculate)
+                                .addGap(169, 169, 169)
+                                .addComponent(btn_new)
+                                .addGap(190, 190, 190)
+                                .addComponent(btn_save)
+                                .addGap(175, 175, 175)
+                                .addComponent(btn_delete)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btn_exit))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1015, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -302,46 +395,56 @@ public class Pago extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(43, 43, 43)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(txt_hoursWorked, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(txt_hourlyPay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(txt_extraHours, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9)
-                    .addComponent(txt_extraPayment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel13)
+                    .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel12))
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txt_baseSalary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel10)
                     .addComponent(txt_saving, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31)
+                .addGap(2, 2, 2)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(txt_netSalary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2)
+                    .addComponent(txt_hoursWorked, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txt_schoolSavings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(23, 23, 23)
+                .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txt_safe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11))
-                .addGap(39, 39, 39)
+                    .addComponent(jLabel6)
+                    .addComponent(txt_extraHours, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(65, 65, 65)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel4)
+                                    .addComponent(txt_baseSalary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel3)
+                                    .addComponent(txt_hourlyPay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                .addGap(1, 1, 1)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel11)
+                                    .addComponent(txt_safe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(13, 13, 13)))
+                        .addGap(35, 35, 35)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(txt_netSalary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel9)
+                            .addComponent(txt_extraPayment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(jLabel13)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_calculate)
                     .addComponent(btn_new)
-                    .addComponent(bnt_save)
+                    .addComponent(btn_save)
                     .addComponent(btn_exit)
                     .addComponent(btn_delete))
                 .addContainerGap())
@@ -389,11 +492,11 @@ public class Pago extends javax.swing.JFrame {
         extraPayment = Double.parseDouble(txt_extraPayment.getText());
         savings = Double.parseDouble(txt_saving.getText());
         schoolSavings = Double.parseDouble(txt_schoolSavings.getText());
-     
+
         try {
             for (int i = 0; i < registro.length; i++) {
 
-                if (id.equals(registro[i].getCedula())) {
+                if (id.equals(registro[i].getIdentification())) {
                     found = true;
                     minimumWage = hourWorked * hourlyRate;
                     extra = extraHours * extraPayment;
@@ -412,7 +515,7 @@ public class Pago extends javax.swing.JFrame {
 
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Todos los campos no estan llenos");
+            JOptionPane.showMessageDialog(null, "Todos los campos no estan llenoes");
         }
 
     }//GEN-LAST:event_btn_calculateActionPerformed
@@ -443,11 +546,11 @@ public class Pago extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_safeKeyPressed
 
     private void txt_safeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_safeActionPerformed
-        txt_safe.setEnabled(false);
+       
     }//GEN-LAST:event_txt_safeActionPerformed
 
     private void txt_netSalaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_netSalaryActionPerformed
-        txt_netSalary.setEnabled(false);
+       
     }//GEN-LAST:event_txt_netSalaryActionPerformed
 
     private void tbt_boardAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tbt_boardAncestorAdded
@@ -457,7 +560,7 @@ public class Pago extends javax.swing.JFrame {
     private void tbt_boardAncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tbt_boardAncestorRemoved
 
     }//GEN-LAST:event_tbt_boardAncestorRemoved
-    private void limpiar() {
+    private void clean() {
         txt_baseSalary.setText("");
         txt_extraHours.setText("");
         txt_extraPayment.setText("");
@@ -469,7 +572,7 @@ public class Pago extends javax.swing.JFrame {
         txt_saving.setText("");
         txt_schoolSavings.setText("");
     }
-    private void bnt_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnt_saveActionPerformed
+    private void btn_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saveActionPerformed
         String id = txt_id.getText();
         Main mn = new Main();
 
@@ -483,33 +586,97 @@ public class Pago extends javax.swing.JFrame {
 
         for (int i = 0; i < registro.length; i++) {
 
-            if (id.equals(registro[i].getCedula())) {
+            if (id.equals(registro[i].getIdentification())) {
                 found = true;
-                String nom = registro[i].getNombre();
-                String apell = registro[i].getApellido();
-                Object[] datos = new Object[4];
-                datos[0] = id;
-                datos[1] = nom + " " + apell;
-                datos[2] = bruto;
-                datos[3] = neto;
-                modelo.addRow(datos);
-
+                String nam = registro[i].getName();
+                String last = registro[i].getLastName();
+                Object[] data = new Object[4];
+                data[0] = id;
+                data[1] = nam + " " + last;
+                data[2] = bruto;
+                data[3] = neto;
+                model.addRow(data);
+             clean();
             }
         }
         if (found == false) {
             JOptionPane.showMessageDialog(null, "No se encontro la persona");
 
         }
-    }//GEN-LAST:event_bnt_saveActionPerformed
+    }//GEN-LAST:event_btn_saveActionPerformed
 
     private void btn_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteActionPerformed
         int delete = tbt_board.getSelectedRowCount();
         if (delete >= 0) {
-            modelo.removeRow(delete);
+            model.removeRow(delete);
         } else {
             JOptionPane.showMessageDialog(null, "No hay datos por Eliminar");
         }
     }//GEN-LAST:event_btn_deleteActionPerformed
+
+    private void txt_idKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_idKeyReleased
+        enableButton();
+    }//GEN-LAST:event_txt_idKeyReleased
+
+    private void txt_hoursWorkedKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_hoursWorkedKeyReleased
+         enableButton();
+    }//GEN-LAST:event_txt_hoursWorkedKeyReleased
+
+    private void txt_extraHoursKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_extraHoursKeyReleased
+         enableButton();
+    }//GEN-LAST:event_txt_extraHoursKeyReleased
+
+    private void txt_hourlyPayKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_hourlyPayKeyReleased
+         enableButton();
+    }//GEN-LAST:event_txt_hourlyPayKeyReleased
+
+    private void txt_extraPaymentKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_extraPaymentKeyReleased
+         enableButton();
+    }//GEN-LAST:event_txt_extraPaymentKeyReleased
+
+    private void txt_savingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_savingActionPerformed
+         enableButton();
+    }//GEN-LAST:event_txt_savingActionPerformed
+
+    private void txt_schoolSavingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_schoolSavingsActionPerformed
+         enableButton();
+    }//GEN-LAST:event_txt_schoolSavingsActionPerformed
+
+    private void txt_baseSalaryKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_baseSalaryKeyReleased
+        enableButton();
+    }//GEN-LAST:event_txt_baseSalaryKeyReleased
+
+    private void txt_netSalaryKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_netSalaryKeyReleased
+        enableButton();
+    }//GEN-LAST:event_txt_netSalaryKeyReleased
+
+    private void txt_safeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_safeKeyReleased
+        enableButton();
+    }//GEN-LAST:event_txt_safeKeyReleased
+
+    private void btn_newKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btn_newKeyReleased
+        enableButton();
+    }//GEN-LAST:event_btn_newKeyReleased
+
+    private void btn_deleteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btn_deleteKeyReleased
+        enableButton();
+    }//GEN-LAST:event_btn_deleteKeyReleased
+
+    private void btn_exitKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btn_exitKeyReleased
+       enableButton();
+    }//GEN-LAST:event_btn_exitKeyReleased
+
+    private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
+        enableButton();
+    }//GEN-LAST:event_formKeyReleased
+
+    private void btn_saveKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btn_saveKeyReleased
+        enableButton();
+    }//GEN-LAST:event_btn_saveKeyReleased
+
+    private void tbt_boardKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbt_boardKeyReleased
+        enableButton();
+    }//GEN-LAST:event_tbt_boardKeyReleased
 
     /**
      * @param args the command line arguments
@@ -528,30 +695,31 @@ public class Pago extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Pago.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Paying.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Pago.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Paying.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Pago.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Paying.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Pago.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Paying.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Pago().setVisible(true);
+                new Paying().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bnt_save;
     private javax.swing.JButton btn_calculate;
     private javax.swing.JButton btn_delete;
     private javax.swing.JButton btn_exit;
     private javax.swing.JButton btn_new;
+    private javax.swing.JButton btn_save;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

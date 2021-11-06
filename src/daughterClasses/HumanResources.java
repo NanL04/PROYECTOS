@@ -13,8 +13,8 @@ import superclasess.Person;
  */
 public class HumanResources extends Person {
     
-    public HumanResources(String cedula, String nombre, String apellido, String direccion, String telefono, String horario) {
-        super(cedula, nombre, apellido, direccion, telefono, horario);
+    public HumanResources(String identification, String name, String lastName, String direction, String telephone, String schedule) {
+        super(identification, name, lastName, direction, telephone, schedule);
     }
     
     
