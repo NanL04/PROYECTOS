@@ -3,10 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package daughterClasses;
+package Formularios;
+
+import static Formularios.Pago.registro;
+import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
 import superclasess.Person;
 import travelagency.Main;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,17 +19,26 @@ import travelagency.Main;
 public class Pago extends javax.swing.JFrame {
 
     /**
-     * 
+     *
      * Creates new form Pago
      */
+    DefaultTableModel modelo = new DefaultTableModel();
+
     public Pago() {
         initComponents();
         txt_baseSalary.setEditable(false);
         txt_netSalary.setEditable(false);
         txt_safe.setEditable(false);
+        setLocationRelativeTo(this);
+        modelo.addColumn("ID");
+        modelo.addColumn("NOMBRE");
+        modelo.addColumn("SALARIO BRUTO");
+        modelo.addColumn("SALARIO NETO");
+        tbt_board.setModel(modelo);
     }
 
     static Person[] registro = Main.llamarRegistro();
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -64,7 +77,7 @@ public class Pago extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        board = new javax.swing.JTable();
+        tbt_board = new javax.swing.JTable();
         btn_delete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -193,27 +206,32 @@ public class Pago extends javax.swing.JFrame {
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
-        board.setModel(new javax.swing.table.DefaultTableModel(
+        tbt_board.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Nombre", "Sueldo Bruto", "Sueldo Bruto"
+
             }
         ));
-        board.addAncestorListener(new javax.swing.event.AncestorListener() {
-            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
-                boardAncestorAdded(evt);
-            }
-            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
-                boardAncestorRemoved(evt);
-            }
+        tbt_board.addAncestorListener(new javax.swing.event.AncestorListener() {
             public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
             }
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                tbt_boardAncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+                tbt_boardAncestorRemoved(evt);
+            }
         });
-        jScrollPane2.setViewportView(board);
+        jScrollPane2.setViewportView(tbt_board);
 
         btn_delete.setText("Borrar");
+        btn_delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_deleteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -331,7 +349,7 @@ public class Pago extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-   
+
     private void txt_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_idActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_idActionPerformed
@@ -351,21 +369,19 @@ public class Pago extends javax.swing.JFrame {
     private void btn_calculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_calculateActionPerformed
         Main mn = new Main();
 
-        
-       String id = txt_id.getText();
-    
-       
+        String id = txt_id.getText();
+
         double hourWorked;
         double hourlyRate;
-        double minimumWage;
+        double minimumWage = 0;
         double extraHours;
         double savings;
         double schoolSavings;
-        double netIncome;
+        double netIncome = 0;
         double extraPayment;
         double extra;
         double safe;
-   
+        boolean found = false;
 
         hourWorked = Double.parseDouble(txt_hoursWorked.getText());
         extraHours = Double.parseDouble(txt_extraHours.getText());
@@ -373,30 +389,32 @@ public class Pago extends javax.swing.JFrame {
         extraPayment = Double.parseDouble(txt_extraPayment.getText());
         savings = Double.parseDouble(txt_saving.getText());
         schoolSavings = Double.parseDouble(txt_schoolSavings.getText());
-        
-        
-           for (int i = 0; i < registro.length; i++) {
-            if (id.equals(registro[i].getCedula())) {
-                minimumWage = hourWorked * hourlyRate;
-                extra = extraHours * extraPayment;
-                minimumWage = minimumWage + extra;
-                safe = minimumWage * 0.1;
-                netIncome = minimumWage - savings - schoolSavings - safe;
+     
+        try {
+            for (int i = 0; i < registro.length; i++) {
 
-                txt_baseSalary.setText(String.valueOf(minimumWage));
-                txt_netSalary.setText(String.valueOf(netIncome));
-                txt_safe.setText(String.valueOf(safe));
-    
-                
-            } else {
-                JOptionPane.showMessageDialog(null, "No se encontro la persona");
+                if (id.equals(registro[i].getCedula())) {
+                    found = true;
+                    minimumWage = hourWorked * hourlyRate;
+                    extra = extraHours * extraPayment;
+                    minimumWage = minimumWage + extra;
+                    safe = minimumWage * 0.1;
+                    netIncome = minimumWage - savings - schoolSavings - safe;
+
+                    txt_baseSalary.setText(String.valueOf(minimumWage));
+                    txt_netSalary.setText(String.valueOf(netIncome));
+                    txt_safe.setText(String.valueOf(safe));
+
+                }
             }
+            if (found == false) {
+                JOptionPane.showMessageDialog(null, "No se encontro la persona");
+
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Todos los campos no estan llenos");
         }
-                
-               
-               
-            
-        
+
     }//GEN-LAST:event_btn_calculateActionPerformed
 
     private void btn_newActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_newActionPerformed
@@ -432,34 +450,66 @@ public class Pago extends javax.swing.JFrame {
         txt_netSalary.setEnabled(false);
     }//GEN-LAST:event_txt_netSalaryActionPerformed
 
-    private void boardAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_boardAncestorAdded
-      
-    }//GEN-LAST:event_boardAncestorAdded
+    private void tbt_boardAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tbt_boardAncestorAdded
 
-    private void boardAncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_boardAncestorRemoved
-       
-    }//GEN-LAST:event_boardAncestorRemoved
+    }//GEN-LAST:event_tbt_boardAncestorAdded
 
+    private void tbt_boardAncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tbt_boardAncestorRemoved
+
+    }//GEN-LAST:event_tbt_boardAncestorRemoved
+    private void limpiar() {
+        txt_baseSalary.setText("");
+        txt_extraHours.setText("");
+        txt_extraPayment.setText("");
+        txt_hourlyPay.setText("");
+        txt_hoursWorked.setText("");
+        txt_id.setText("");
+        txt_netSalary.setText("");
+        txt_safe.setText("");
+        txt_saving.setText("");
+        txt_schoolSavings.setText("");
+    }
     private void bnt_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bnt_saveActionPerformed
-        Main mn = new Main();
-        Person pn = new Person();
         String id = txt_id.getText();
-        
+        Main mn = new Main();
+
         double minimumWage;
         double netIncome;
-        
         minimumWage = Double.parseDouble(txt_baseSalary.getText());
         netIncome = Double.parseDouble(txt_netSalary.getText());
-        
+        String bruto = String.valueOf(minimumWage);
+        String neto = String.valueOf(netIncome);
+        boolean found = false;
+
         for (int i = 0; i < registro.length; i++) {
+
             if (id.equals(registro[i].getCedula())) {
-                
-            
-        }else {
-                JOptionPane.showMessageDialog(null, "No se encontro la persona");
-            }  
+                found = true;
+                String nom = registro[i].getNombre();
+                String apell = registro[i].getApellido();
+                Object[] datos = new Object[4];
+                datos[0] = id;
+                datos[1] = nom + " " + apell;
+                datos[2] = bruto;
+                datos[3] = neto;
+                modelo.addRow(datos);
+
+            }
+        }
+        if (found == false) {
+            JOptionPane.showMessageDialog(null, "No se encontro la persona");
+
         }
     }//GEN-LAST:event_bnt_saveActionPerformed
+
+    private void btn_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteActionPerformed
+        int delete = tbt_board.getSelectedRowCount();
+        if (delete >= 0) {
+            modelo.removeRow(delete);
+        } else {
+            JOptionPane.showMessageDialog(null, "No hay datos por Eliminar");
+        }
+    }//GEN-LAST:event_btn_deleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -498,7 +548,6 @@ public class Pago extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bnt_save;
-    private javax.swing.JTable board;
     private javax.swing.JButton btn_calculate;
     private javax.swing.JButton btn_delete;
     private javax.swing.JButton btn_exit;
@@ -518,6 +567,7 @@ public class Pago extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable tbt_board;
     private javax.swing.JTextField txt_baseSalary;
     private javax.swing.JTextField txt_extraHours;
     private javax.swing.JTextField txt_extraPayment;

@@ -6,7 +6,7 @@
 package travelagency;
 
 import daughterClasses.Administrative;
-import daughterClasses.Pago;
+import Formularios.Pago;
 import java.util.Scanner;
 import superclasess.Person;
 import static travelagency.Main.registro;
