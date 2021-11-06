@@ -25,7 +25,7 @@ public class Paying extends javax.swing.JFrame {
 
     public Paying() {
         initComponents();
-        
+
         txt_baseSalary.setEditable(false);
         txt_netSalary.setEditable(false);
         txt_safe.setEditable(false);
@@ -39,12 +39,13 @@ public class Paying extends javax.swing.JFrame {
         model.addColumn("SALARIO NETO");
         tbt_board.setModel(model);
     }
-    
+
+    //metodo para activar botones de calcular y guardar cuando tenga algo escrito
     public void enableButton() {
         if (txt_hoursWorked.getText().isEmpty() || txt_extraHours.getText().isEmpty()
                 || txt_hourlyPay.getText().isEmpty() || txt_extraPayment.getText().isEmpty()
                 || txt_id.getText().isEmpty() || txt_saving.getText().isEmpty()
-                || txt_schoolSavings.getText().isEmpty()){
+                || txt_schoolSavings.getText().isEmpty()) {
 
             btn_save.setEnabled(false);
             btn_calculate.setEnabled(false);
@@ -83,8 +84,6 @@ public class Paying extends javax.swing.JFrame {
         btn_new = new javax.swing.JButton();
         btn_save = new javax.swing.JButton();
         btn_exit = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
-        txt_extraPayment = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         txt_schoolSavings = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
@@ -96,6 +95,9 @@ public class Paying extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tbt_board = new javax.swing.JTable();
         btn_delete = new javax.swing.JButton();
+        jLabel14 = new javax.swing.JLabel();
+        txt_extraPayment = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addKeyListener(new java.awt.event.KeyAdapter() {
@@ -176,6 +178,11 @@ public class Paying extends javax.swing.JFrame {
                 txt_savingActionPerformed(evt);
             }
         });
+        txt_saving.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_savingKeyReleased(evt);
+            }
+        });
 
         jLabel8.setText("SUELDO NETO");
 
@@ -233,19 +240,16 @@ public class Paying extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setText("PAGO POR HORAS EXTRAS");
-
-        txt_extraPayment.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txt_extraPaymentKeyReleased(evt);
-            }
-        });
-
         jLabel10.setText("AHORRO");
 
         txt_schoolSavings.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_schoolSavingsActionPerformed(evt);
+            }
+        });
+        txt_schoolSavings.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_schoolSavingsKeyReleased(evt);
             }
         });
 
@@ -331,15 +335,26 @@ public class Paying extends javax.swing.JFrame {
             }
         });
 
+        jLabel14.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel14.setText("Llene todos los espacios para habilitar los botones");
+
+        txt_extraPayment.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_extraPaymentKeyReleased(evt);
+            }
+        });
+
+        jLabel9.setText("PAGO POR HORAS EXTRAS");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel7)
@@ -350,42 +365,40 @@ public class Paying extends javax.swing.JFrame {
                         .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txt_baseSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(txt_hoursWorked, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(txt_extraHours, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_netSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txt_netSalary, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txt_hoursWorked, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+                                .addComponent(txt_extraHours, javax.swing.GroupLayout.Alignment.LEADING)))
                         .addGap(50, 50, 50)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)
                             .addComponent(jLabel11)
                             .addComponent(jLabel3)
+                            .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(178, 178, 178)
+                        .addGap(119, 119, 119)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txt_hourlyPay, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_schoolSavings, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_saving, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txt_schoolSavings, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txt_safe, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txt_extraPayment, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(442, 442, 442)
-                        .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(btn_calculate)
-                                .addGap(169, 169, 169)
-                                .addComponent(btn_new)
-                                .addGap(190, 190, 190)
-                                .addComponent(btn_save)
-                                .addGap(175, 175, 175)
-                                .addComponent(btn_delete)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btn_exit))
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1015, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txt_extraPayment, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+                                .addComponent(txt_hourlyPay, javax.swing.GroupLayout.Alignment.LEADING))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(btn_calculate)
+                            .addGap(169, 169, 169)
+                            .addComponent(btn_new)
+                            .addGap(190, 190, 190)
+                            .addComponent(btn_save)
+                            .addGap(175, 175, 175)
+                            .addComponent(btn_delete)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btn_exit))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 1015, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -395,51 +408,52 @@ public class Paying extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel12))
-                .addGap(24, 24, 24)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel10)
-                    .addComponent(txt_saving, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(2, 2, 2)
+                    .addComponent(txt_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txt_hoursWorked, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(15, 15, 15)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(txt_schoolSavings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(11, 11, 11)
+                    .addComponent(txt_hoursWorked, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3)
+                    .addComponent(txt_hourlyPay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(45, 45, 45)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(txt_extraHours, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_extraHours, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txt_extraPayment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel4)
+                                .addComponent(txt_baseSalary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(65, 65, 65)
+                                .addComponent(jLabel12)
+                                .addGap(36, 36, 36)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel4)
-                                    .addComponent(txt_baseSalary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3)
-                                    .addComponent(txt_hourlyPay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(1, 1, 1)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel11)
-                                    .addComponent(txt_safe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(13, 13, 13)))
-                        .addGap(35, 35, 35)
+                                    .addComponent(jLabel10)
+                                    .addComponent(txt_saving, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(15, 15, 15)))
+                        .addGap(10, 10, 10)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(txt_schoolSavings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(6, 6, 6)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel8)
-                            .addComponent(txt_netSalary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel9)
-                            .addComponent(txt_extraPayment, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txt_netSalary, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(29, 29, 29)
                         .addComponent(jLabel13)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 360, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel11)
+                    .addComponent(txt_safe, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel14)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_calculate)
@@ -468,11 +482,9 @@ public class Paying extends javax.swing.JFrame {
     private void txt_baseSalaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_baseSalaryActionPerformed
         txt_baseSalary.setEnabled(false);
     }//GEN-LAST:event_txt_baseSalaryActionPerformed
-
+    // este metodo hace las operaciones para clacular seguro, salario bruto y salario neto
     private void btn_calculateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_calculateActionPerformed
         Main mn = new Main();
-
-        String id = txt_id.getText();
 
         double hourWorked;
         double hourlyRate;
@@ -485,15 +497,15 @@ public class Paying extends javax.swing.JFrame {
         double extra;
         double safe;
         boolean found = false;
-
-        hourWorked = Double.parseDouble(txt_hoursWorked.getText());
-        extraHours = Double.parseDouble(txt_extraHours.getText());
-        hourlyRate = Double.parseDouble(txt_hourlyPay.getText());
-        extraPayment = Double.parseDouble(txt_extraPayment.getText());
-        savings = Double.parseDouble(txt_saving.getText());
-        schoolSavings = Double.parseDouble(txt_schoolSavings.getText());
-
         try {
+            String id = txt_id.getText();
+            hourWorked = Double.parseDouble(txt_hoursWorked.getText());
+            extraHours = Double.parseDouble(txt_extraHours.getText());
+            hourlyRate = Double.parseDouble(txt_hourlyPay.getText());
+            extraPayment = Double.parseDouble(txt_extraPayment.getText());
+            savings = Double.parseDouble(txt_saving.getText());
+            schoolSavings = Double.parseDouble(txt_schoolSavings.getText());
+
             for (int i = 0; i < registro.length; i++) {
 
                 if (id.equals(registro[i].getIdentification())) {
@@ -515,7 +527,7 @@ public class Paying extends javax.swing.JFrame {
 
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Todos los campos no estan llenoes");
+            JOptionPane.showMessageDialog(null, "Todos los campos no estan llenos");
         }
 
     }//GEN-LAST:event_btn_calculateActionPerformed
@@ -531,10 +543,12 @@ public class Paying extends javax.swing.JFrame {
         txt_safe.setText("");
         txt_saving.setText("");
         txt_schoolSavings.setText("");
+        enableButton();
     }//GEN-LAST:event_btn_newActionPerformed
 
     private void btn_exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_exitActionPerformed
         System.exit(0);
+
     }//GEN-LAST:event_btn_exitActionPerformed
 
     private void txt_hourlyPayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_hourlyPayActionPerformed
@@ -546,11 +560,11 @@ public class Paying extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_safeKeyPressed
 
     private void txt_safeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_safeActionPerformed
-       
+
     }//GEN-LAST:event_txt_safeActionPerformed
 
     private void txt_netSalaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_netSalaryActionPerformed
-       
+
     }//GEN-LAST:event_txt_netSalaryActionPerformed
 
     private void tbt_boardAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tbt_boardAncestorAdded
@@ -560,6 +574,7 @@ public class Paying extends javax.swing.JFrame {
     private void tbt_boardAncestorRemoved(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_tbt_boardAncestorRemoved
 
     }//GEN-LAST:event_tbt_boardAncestorRemoved
+    // metodo para limpiar todo el jform
     private void clean() {
         txt_baseSalary.setText("");
         txt_extraHours.setText("");
@@ -572,44 +587,56 @@ public class Paying extends javax.swing.JFrame {
         txt_saving.setText("");
         txt_schoolSavings.setText("");
     }
+
+    //este metodo es para que el boton guardar guarde en la tabla el id, nombre, salario bruto y salario neto
     private void btn_saveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_saveActionPerformed
-        String id = txt_id.getText();
+
         Main mn = new Main();
 
         double minimumWage;
         double netIncome;
-        minimumWage = Double.parseDouble(txt_baseSalary.getText());
-        netIncome = Double.parseDouble(txt_netSalary.getText());
-        String bruto = String.valueOf(minimumWage);
-        String neto = String.valueOf(netIncome);
-        boolean found = false;
+        try {
+            String id = txt_id.getText();
+            minimumWage = Double.parseDouble(txt_baseSalary.getText());
+            netIncome = Double.parseDouble(txt_netSalary.getText());
+            String bruto = String.valueOf(minimumWage);
+            String neto = String.valueOf(netIncome);
+            boolean found = false;
 
-        for (int i = 0; i < registro.length; i++) {
+            for (int i = 0; i < registro.length; i++) {
 
-            if (id.equals(registro[i].getIdentification())) {
-                found = true;
-                String nam = registro[i].getName();
-                String last = registro[i].getLastName();
-                Object[] data = new Object[4];
-                data[0] = id;
-                data[1] = nam + " " + last;
-                data[2] = bruto;
-                data[3] = neto;
-                model.addRow(data);
-             clean();
+                if (id.equals(registro[i].getIdentification())) {
+                    found = true;
+                    String nam = registro[i].getName();
+                    String last = registro[i].getLastName();
+                    Object[] data = new Object[4];
+                    data[0] = id;
+                    data[1] = nam + " " + last;
+                    data[2] = bruto;
+                    data[3] = neto;
+                    model.addRow(data);
+                    clean();
+                }
             }
-        }
-        if (found == false) {
-            JOptionPane.showMessageDialog(null, "No se encontro la persona");
+            if (found == false) {
+                JOptionPane.showMessageDialog(null, "No se encontro la persona");
 
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "llene los espacios, calcule el salario base y bruto");
         }
     }//GEN-LAST:event_btn_saveActionPerformed
-
+    //metodo para borrar una fila de la tabla de planilla de pago
     private void btn_deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_deleteActionPerformed
         int delete = tbt_board.getSelectedRowCount();
-        if (delete >= 0) {
-            model.removeRow(delete);
-        } else {
+        try {
+
+            if (delete >= 0) {
+                model.removeRow(delete);
+            } else {
+                JOptionPane.showMessageDialog(null, "No hay datos por Eliminar");
+            }
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "No hay datos por Eliminar");
         }
     }//GEN-LAST:event_btn_deleteActionPerformed
@@ -619,27 +646,51 @@ public class Paying extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_idKeyReleased
 
     private void txt_hoursWorkedKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_hoursWorkedKeyReleased
-         enableButton();
+        char validate = evt.getKeyChar();
+        if (Character.isLetter(validate)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showInternalMessageDialog(rootPane, "Ingrese solo numeros");
+        }
+        enableButton();
     }//GEN-LAST:event_txt_hoursWorkedKeyReleased
 
     private void txt_extraHoursKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_extraHoursKeyReleased
-         enableButton();
+        char validate = evt.getKeyChar();
+        if (Character.isLetter(validate)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showInternalMessageDialog(rootPane, "Ingrese solo numeros");
+        }
+        enableButton();
     }//GEN-LAST:event_txt_extraHoursKeyReleased
 
     private void txt_hourlyPayKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_hourlyPayKeyReleased
-         enableButton();
+        char validate = evt.getKeyChar();
+        if (Character.isLetter(validate)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showInternalMessageDialog(rootPane, "Ingrese solo numeros");
+        }
+        enableButton();
     }//GEN-LAST:event_txt_hourlyPayKeyReleased
 
     private void txt_extraPaymentKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_extraPaymentKeyReleased
-         enableButton();
+        char validate = evt.getKeyChar();
+        if (Character.isLetter(validate)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showInternalMessageDialog(rootPane, "Ingrese solo numeros");
+        }
+        enableButton();
     }//GEN-LAST:event_txt_extraPaymentKeyReleased
 
     private void txt_savingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_savingActionPerformed
-         enableButton();
+
     }//GEN-LAST:event_txt_savingActionPerformed
 
     private void txt_schoolSavingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_schoolSavingsActionPerformed
-         enableButton();
+
     }//GEN-LAST:event_txt_schoolSavingsActionPerformed
 
     private void txt_baseSalaryKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_baseSalaryKeyReleased
@@ -663,7 +714,7 @@ public class Paying extends javax.swing.JFrame {
     }//GEN-LAST:event_btn_deleteKeyReleased
 
     private void btn_exitKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btn_exitKeyReleased
-       enableButton();
+        enableButton();
     }//GEN-LAST:event_btn_exitKeyReleased
 
     private void formKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_formKeyReleased
@@ -677,6 +728,26 @@ public class Paying extends javax.swing.JFrame {
     private void tbt_boardKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tbt_boardKeyReleased
         enableButton();
     }//GEN-LAST:event_tbt_boardKeyReleased
+
+    private void txt_savingKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_savingKeyReleased
+        char validate = evt.getKeyChar();
+        if (Character.isLetter(validate)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showInternalMessageDialog(rootPane, "Ingrese solo numeros");
+        }
+        enableButton();
+    }//GEN-LAST:event_txt_savingKeyReleased
+
+    private void txt_schoolSavingsKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_schoolSavingsKeyReleased
+            char validate = evt.getKeyChar();
+        if (Character.isLetter(validate)) {
+            getToolkit().beep();
+            evt.consume();
+            JOptionPane.showInternalMessageDialog(rootPane, "Ingrese solo numeros");
+        }
+        enableButton();
+    }//GEN-LAST:event_txt_schoolSavingsKeyReleased
 
     /**
      * @param args the command line arguments
@@ -725,6 +796,7 @@ public class Paying extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
