@@ -26,9 +26,10 @@ public class Main {
      */
     public static void main(String[] args) {
         boolean exit = false;
-        while (!exit) {
+        while (!exit) { //Se crea un ciclo para repetir el menú las veces que el usuario lo desee
 
-            try {
+            try { //Se coloca un Try catch para intentar capturar las posibles fallas
+                
                 System.out.println("");
                 System.out.println("***Bienvenido al Sistema de recursos Humanos***");
                 System.out.println("");
@@ -40,7 +41,7 @@ public class Main {
                 int opMainMenu = scan.nextInt();
                 System.out.println("");
 
-                switch (opMainMenu) {
+                switch (opMainMenu) { //Se crea un switch para cada una de las posibles opciones del menú
 
                     case 1:
 
@@ -53,7 +54,7 @@ public class Main {
                         int opRecruitmentMenu = scan.nextInt();
                         System.out.println("");
 
-                        switch (opRecruitmentMenu) {
+                        switch (opRecruitmentMenu) { //Se crea un switch para cada una de las posibles opciones del menú
 
                             case 1:
 
@@ -62,7 +63,7 @@ public class Main {
                                 registration = new Person[amountOfPeople];
 
                                 for (int i = 0; i < registration.length; i++) {
-                                    registration[i] = createPerson();
+                                    registration[i] = createPerson(); //Se llama el metodo para crear personas
                                 }
 
                                 System.out.println("");
@@ -79,21 +80,23 @@ public class Main {
                                 break;
 
                             case 2:
-                                removePerson();
+                                removePerson(); //Se llama el metodo para eliminar personas
                                 break;
 
                             case 3:
-                                searchPerson();
+                                searchPerson(); //Se llama el metodo para buscar personas
                                 break;
 
                             case 4:
-                                modifyPerson();
+                                modifyPerson(); //Se llama el metodo para modificar personas
 
                                 break;
 
-                            case 5: //VER
+                            case 5: //Case para ver las personas registradas
+                                
                                 System.out.println("***Personas registradas***");
-
+                                
+                                //Se imprime el registro de personas 
                                 for (int i = 0; i < registration.length; i++) {
                                     if (registration[i] instanceof Administrative) {
                                         Administrative administrative = (Administrative) registration[i];
@@ -117,24 +120,25 @@ public class Main {
 
                 }
             } catch (Exception e) {
-                System.out.println("El valor ingresado es u dato erroneo");
+                System.out.println("El valor ingresado es un dato erroneo");
   
             }
         }
 
     }
 
-    public static Person[] callRegistration() {
+    public static Person[] callRegistration() { //Se crea el metodo llamar registro
         Person[] test = registration;
         return test;
 
     }
 
-    public static Person createPerson() {
+    public static Person createPerson() { //Se crea el metodo cretePersons para el registro de las personas
         System.out.println("");
         System.out.println("Digite los datos de la persona a registrar");
         Scanner scan = new Scanner(System.in);
 
+        //Se solicitan y leen los datos necesarios para crear el usuario de la persona
         System.out.println("Cedula: ");
         String identification = scan.next();
         System.out.println("Nombre: ");
@@ -151,22 +155,23 @@ public class Main {
         String position = scan.next();
         System.out.println("");
 
+        //Se crea una instacnia donde se guardan los atrubutos anteriormente solicitados
         Administrative admin = new Administrative(position, identification, name,
                 lastName, direction, telephone, schedule);
 
-        return admin;
+        return admin; //Se retorna la instancia
 
     }
 
-    public static void removePerson() {
+    public static void removePerson() { //Se crea el metodo removePerson para eliminar a alguna persona del registro
 
         Scanner scan = new Scanner(System.in);
         System.out.println("Digite la cedula de la persona que desea eliminar");
         String identification = scan.next();
 
-        for (int j = 0; j < registration.length; j++) {
-            int a = Integer.parseInt(identification);
-            if (identification.equals(registration[j].getIdentification())) {
+        for (int j = 0; j < registration.length; j++) { //Se crea un ciclo para recorrer el registo
+//            int a = Integer.parseInt(identification); 
+            if (identification.equals(registration[j].getIdentification())) { //Se crea una condición para eliminar al numero de cedula seleccionado
                 registration[j] = null;
 
 //               
@@ -180,15 +185,15 @@ public class Main {
 
     }
 
-    public static void searchPerson() {
+    public static void searchPerson() { //Se crea el metodo searchPerson para buscar a una persona
 
         Scanner scan = new Scanner(System.in);
         System.out.println("Digite la cedula de la persona que desea buscar");
         String identification = scan.nextLine();
 
-        for (int j = 0; j < registration.length; j++) {
+        for (int j = 0; j < registration.length; j++) { //Se crea un ciclo para recorrer el registo
 
-            if (identification.equals(registration[j].getIdentification())) {
+            if (identification.equals(registration[j].getIdentification())) { //Se crea una condición para buscar al numero de cedula seleccionado
                 System.out.println("La persona se encuentra en el registro ");
 
                 System.out.println("El nombre de la persona es " + registration[j].getName());
@@ -202,14 +207,14 @@ public class Main {
 
     }
 
-    public static void modifyPerson() {
+    public static void modifyPerson() { //Se crea el metodo modifyPerson para modificar alguna persona
 
         Scanner scan = new Scanner(System.in);
         System.out.println("Digite la cedula de la persona que desea modificar");
         String identification = scan.next();
 
-        for (int j = 0; j < registration.length; j++) {
-            if (identification.equals(registration[j].getIdentification())) {
+        for (int j = 0; j < registration.length; j++) {//Se crea un ciclo para recorrer el registo
+            if (identification.equals(registration[j].getIdentification())) { //Se crea una condición para modificar la persona seleccionada
                 System.out.println("Digite el nuevo nombre de la persona que desea modificar");
                 String name = scan.next();
                 System.out.println("Digite el nuevo apellido de la persona que desea modificar");

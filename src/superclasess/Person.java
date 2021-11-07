@@ -11,14 +11,24 @@ package superclasess;
  */
 
 public class Person {
+    
+        // Se crean los atrubutos principales de la clase persona
+        private String identification; //nos permite guardar la identifación de la persona
+        private String name; //nos permite guardar el nombre de la persona
+        private String lastName; //nos permite guardar el apellido de la persona
+        private String direction; //nos permite guardar la dirección de la persona
+        private String telephone; //nos permite guardar lel telefono de la persona
+        private String schedule; //nos permite guardar el horario de la persona
 
-        private String identification;
-        private String name;
-        private String lastName;
-        private String direction;
-        private String telephone;
-        private String schedule;
-
+        /**
+         * Sirve para guardar los datos de identification, name, lastName,direction,telephone y schedule
+         * @param identification
+         * @param name
+         * @param lastName
+         * @param direction
+         * @param telephone
+         * @param schedule 
+         */
     public Person(String identification, String name, String lastName, String direction,
             String telephone, String schedule) {
         this.identification = identification;
@@ -117,7 +127,7 @@ public class Person {
             this.schedule = schedule;
         }
 
-        @Override
+        @Override // Se escriben los textos y las variables que se quieren imprimir
         public String toString() {
             return "\nNombre: " + this.name+ "\nApellido: "+this.lastName  
                     +"\nCédula: " + this.identification + "\nDirección: " + this.direction +

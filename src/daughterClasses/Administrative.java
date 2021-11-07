@@ -11,9 +11,19 @@ import superclasess.Person;
  *
  * @author jazmi
  */
-public class Administrative extends Person {
-    private String position;
+public class Administrative extends Person { // La clase Administrative hereda de persona para obtener sus atributos
+    private String position; //Se declara la variable puesto
 
+    /**
+     * Sirve para guardar el dato de position y los de la superclase Person
+     * @param position
+     * @param identification
+     * @param name
+     * @param lastName
+     * @param direction
+     * @param telephone
+     * @param schedule 
+     */
     public Administrative(String position, String identification, String name, String lastName, String direction, String telephone, String schedule) {
         super(identification, name, lastName, direction, telephone, schedule);
         this.position = position;
